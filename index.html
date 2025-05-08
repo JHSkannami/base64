@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログインページ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input[type="password"] {
+            padding: 10px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 15px;
+        }
+        p {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>ログインページ</h1>
+    <form id="loginForm">
+        <label for="password">パスワード:</label>
+        <input type="password" id="password" required>
+        <button type="submit">ログイン</button>
+    </form>
+    <p id="errorMessage"></p>
+
+    <script>
+        // クッキーのチェック
+        if (document.cookie.includes('login=true')) {
+            window.location.href = 'login.html'; // 既にログインしている場合はlogin.htmlにリダイレクト
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // フォームのデフォルト動作を防ぐ
+            const password = document.getElementById('password').value;
+
+            // パスワードの確認
+            if (password === 'mlh03443') {
+                document.cookie = "login=true; path=/; max-age=3600"; // クッキーを設定（1時間有効）
+                window.location.href = 'login.html'; // login.htmlにリダイレクト
+            } else {
+                document.getElementById('errorMessage').textContent = 'パスワードが間違っています。';
+            }
+        });
+    </script>
+</body>
+</html>
