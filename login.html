@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 解読ページ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 15px;
+        }
+        p {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Base64 エンコードされた文字列の解読</h1>
+    <form id="decodeForm">
+        <label for="encoded">エンコードされた文字列:</label>
+        <input type="text" id="encoded" required>
+        <button type="submit">解読</button>
+    </form>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById('decodeForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // フォームのデフォルト動作を防ぐ
+            const encoded = document.getElementById('encoded').value;
+            const decoded = atob(encoded); // Base64デコード
+            document.getElementById('result').textContent = '解読結果: ' + decoded;
+        });
+    </script>
+</body>
+</html>
