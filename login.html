@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 20px;
         }
-        input[type="password"] {
+        input[type="password"], input[type="text"] {
             padding: 10px;
             margin-right: 10px;
         }
@@ -31,6 +31,14 @@
     <p id="errorMessage"></p>
 
     <button id="logoutButton" style="display:none;">ログアウト</button>
+
+    <h2>Base64 暗号化と解読</h2>
+    <form id="base64Form">
+        <label for="base64Input">Base64文字列:</label>
+        <input type="text" id="base64Input" required>
+        <button type="submit" id="decodeButton">解読</button>
+    </form>
+    <p id="base64Result"></p>
 
     <script>
         // クッキーのチェック
@@ -55,6 +63,17 @@
         document.getElementById('logoutButton').addEventListener('click', function() {
             document.cookie = "login=; path=/; max-age=0"; // クッキーを削除
             window.location.href = 'index.html'; // index.htmlにリダイレクト
+        });
+
+        document.getElementById('base64Form').addEventListener('submit', function(event) {
+            event.preventDefault(); // フォームのデフォルト動作を防ぐ
+            const base64String = document.getElementById('base64Input').value;
+            try {
+                const decodedString = atob(base64String); // Base64デコード
+                document.getElementById('base64Result').textContent = '解読結果: ' + decodedString;
+            } catch (e) {
+                document.getElementById('base64Result').textContent = '無効なBase64文字列です。';
+            }
         });
     </script>
 </body>
