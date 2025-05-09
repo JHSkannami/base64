@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Base64 解読ページ</title>
+    <title>ログインページ</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
         }
-        input[type="text"] {
-            width: 300px;
+        input[type="password"] {
             padding: 10px;
             margin-right: 10px;
         }
@@ -18,26 +17,44 @@
             padding: 10px 15px;
         }
         p {
-            margin-top: 20px;
-            font-weight: bold;
+            color: red;
         }
     </style>
 </head>
 <body>
-    <h1>Base64 エンコードされた文字列の解読</h1>
-    <form id="decodeForm">
-        <label for="encoded">エンコードされた文字列:</label>
-        <input type="text" id="encoded" required>
-        <button type="submit">解読</button>
+    <h1>ログインページ</h1>
+    <form id="loginForm">
+        <label for="password">パスワード:</label>
+        <input type="password" id="password" required>
+        <button type="submit">ログイン</button>
     </form>
-    <p id="result"></p>
+    <p id="errorMessage"></p>
+
+    <button id="logoutButton" style="display:none;">ログアウト</button>
 
     <script>
-        document.getElementById('decodeForm').addEventListener('submit', function(event) {
+        // クッキーのチェック
+        if (document.cookie.includes('login=true')) {
+            document.getElementById('loginForm').style.display = 'none'; // ログインフォームを隠す
+            document.getElementById('logoutButton').style.display = 'inline'; // ログアウトボタンを表示
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault(); // フォームのデフォルト動作を防ぐ
-            const encoded = document.getElementById('encoded').value;
-            const decoded = atob(encoded); // Base64デコード
-            document.getElementById('result').textContent = '解読結果: ' + decoded;
+            const password = document.getElementById('password').value;
+
+            // パスワードの確認
+            if (password === 'mlh03443') {
+                document.cookie = "login=true; path=/; max-age=3600"; // クッキーを設定（1時間有効）
+                window.location.href = 'login.html'; // 自分自身をリロード
+            } else {
+                document.getElementById('errorMessage').textContent = 'パスワードが間違っています。';
+            }
+        });
+
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            document.cookie = "login=; path=/; max-age=0"; // クッキーを削除
+            window.location.href = 'index.html'; // index.htmlにリダイレクト
         });
     </script>
 </body>
