@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 暗号化ページ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 15px;
+        }
+        p {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Base64 暗号化</h1>
+  <br><a href="login.html">暗号解読はこちら(ログイン必要)</a><br><br>
+    <form id="encodeForm">
+        <label for="text">文字列:</label>
+        <input type="text" id="text" required>
+        <button type="submit">暗号化</button>
+    </form>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById('encodeForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // フォームのデフォルト動作を防ぐ
+            const text = document.getElementById('text').value;
+            const encoded = btoa(text); // Base64エンコード
+            document.getElementById('result').textContent = '暗号化結果: ' + encoded;
+        });
+    </script>
+</body>
+</html>
